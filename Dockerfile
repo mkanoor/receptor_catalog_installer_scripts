@@ -31,4 +31,4 @@ RUN dnf config-manager --add-repo=http://file.rdu.redhat.com/mkanoor/
 
 
 COPY entrypoint.sh /bin/entrypoint.sh
-CMD /bin/entrypoint.sh
+CMD /bin/entrypoint.sh install_receptor.yml

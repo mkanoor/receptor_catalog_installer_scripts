@@ -1,8 +1,9 @@
 #!/bin/sh
 
-FILE=/playbooks/install_receptor.yml
 RECEPTOR=/etc/receptor/rh_ansible_1/receptor.sh
 UUID_FILE=/etc/receptor/rh_ansible_1/uuid
+
+FILE="/playbooks/$1"
 
 if [[ -f "$FILE" ]]
 then
