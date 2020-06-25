@@ -61,4 +61,5 @@ or
 **docker run -it  -v <<your_current_dir>>/sample_playbooks/container:/playbooks receptor_installer**
 
 If you want to test this as a Developer or a QE you can change the entry point and pass in your playbook
+
 **docker run -it -v <<your_current_dir>>/sample_playbooks/container:/playbooks --entrypoint /bin/entrypoint.sh receptor_installer install_receptor_qa.yml**
