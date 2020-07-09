@@ -32,12 +32,23 @@ function install() {
    fi
 }
 
-function add_qa_repo() {
+function prep_qa_environment() {
   if [[ -z "${QA_REPO}" ]]
   then
     echo "QA Repo not added"
   else
+    # Package needed to add temporary repos till we get an official repository
+    install yum-utils
+
+    # Package needed to fetch the IT ROOT CA certificate
+    install wget
+
     yum-config-manager --add-repo=$QA_REPO
+    # When running in CI environment we need to check the cert
+    # is signed by Redhat IT ROOT CA
+    # Needed only if we are connecting to ci.cloud.redhat.com
+    wget -P /etc/pki/ca-trust/source/anchors/ https://password.corp.redhat.com/RH-IT-Root-CA.crt
+    update-ca-trust
   fi
 }
 
@@ -109,25 +120,13 @@ then
   install python3
 fi
 
-# Package needed to add temporary repos till we get an official repository
-install yum-utils
-
-# Package needed to fetch the IT ROOT CA certificate
-install wget
-
 install ansible
 
 # Install the Ansible Galaxy Role for the installer
 ansible-galaxy install mkanoor.catalog_receptor_installer
 
-# When running in CI environment we need to check the cert
-# is signed by Redhat IT ROOT CA
-# Needed only if we are connecting to ci.cloud.redhat.com
-wget -P /etc/pki/ca-trust/source/anchors/ https://password.corp.redhat.com/RH-IT-Root-CA.crt
-update-ca-trust
-
 # Setup RPM repo for the python receptor & catalog plugin
-add_qa_repo
+prep_qa_environment
 
 if [[ "$MAJOR_VERSION" -eq 7 ]]
 then
