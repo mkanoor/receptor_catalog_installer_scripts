@@ -32,6 +32,15 @@ function install() {
    fi
 }
 
+function add_qa_repo() {
+  if [[ -z "${QA_REPO}" ]]
+  then
+    echo "QA Repo not added"
+  else
+    yum-config-manager --add-repo=$QA_REPO
+  fi
+}
+
 function register_system() {
   if [[ -z "${RHN_USER}" ]]
   then 
@@ -89,6 +98,7 @@ then
 elif [[ "$MAJOR_VERSION" -eq 7 ]]
 then
   subscription-manager repos --enable rhel-7-server-ansible-2.9-rpms
+  subscription-manager repos --enable rhel-7-server-extras-rpms
 else
   echo "Unsupported version of RHEL $MAJOR_VERSION"
   exit 1
@@ -97,7 +107,6 @@ fi
 if [[ "$MAJOR_VERSION" -eq 7 ]]
 then
   install python3
-  pip3 install jmespath
 fi
 
 # Package needed to add temporary repos till we get an official repository
@@ -111,9 +120,6 @@ install ansible
 # Install the Ansible Galaxy Role for the installer
 ansible-galaxy install mkanoor.catalog_receptor_installer
 
-# We need the latest python-dateutil package for the Receptor
-pip3 install python-dateutil==2.8.1
-
 # When running in CI environment we need to check the cert
 # is signed by Redhat IT ROOT CA
 # Needed only if we are connecting to ci.cloud.redhat.com
@@ -121,8 +127,7 @@ wget -P /etc/pki/ca-trust/source/anchors/ https://password.corp.redhat.com/RH-IT
 update-ca-trust
 
 # Setup RPM repo for the python receptor & catalog plugin
-yum-config-manager --nogpgcheck --add-repo=http://dogfood.sat.engineering.redhat.com/pulp/repos/Sat6-CI/QA/Satellite_6_8_with_RHEL7_Server/custom/Satellite_6_8_Composes/Satellite_6_8_RHEL7/
-yum-config-manager --nogpgcheck --add-repo=http://file.rdu.redhat.com/mkanoor/
+add_qa_repo
 
 if [[ "$MAJOR_VERSION" -eq 7 ]]
 then
