@@ -8,6 +8,9 @@
 # Optionally you can set the RHSM_URL if you have a QA or Dev System
 # export RHSM_URL=your_rhsm_url
 
+# Optionally QA can specify an internal repository for testing purpose
+# export QA_REPO=https://your_rpm_repo
+
 # Pre Requisites
 # Python 3.6
 # Ansible 2.9
