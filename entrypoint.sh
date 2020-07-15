@@ -1,7 +1,7 @@
 #!/bin/sh
 
-RECEPTOR=/etc/receptor/rh_ansible_1/receptor.sh
-UUID_FILE=/etc/receptor/rh_ansible_1/uuid
+RECEPTOR=/etc/receptor/rh_ansible_tower/receptor.sh
+UUID_FILE=/etc/receptor/rh_ansible_tower/uuid
 
 FILE="/playbooks/$1"
 
