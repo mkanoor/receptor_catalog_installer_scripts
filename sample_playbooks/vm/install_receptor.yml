@@ -3,8 +3,7 @@
   become: true
   vars:
     tower_url: "https://ansible_tower_ip"
-    tower_user: "admin"
-    tower_password: "secret"
+    tower_token: "your_ansible_token"
     tower_validate_certs: no
   roles:
     - mkanoor.catalog_receptor_installer

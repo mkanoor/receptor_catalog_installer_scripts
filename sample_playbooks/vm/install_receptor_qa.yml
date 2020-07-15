@@ -3,8 +3,7 @@
   become: true
   vars:
     tower_url: "https://ansible_tower_ip"
-    tower_user: "admin"
-    tower_password: "secret"
+    tower_token: "your_ansible_tower_token"
     tower_validate_certs: no
     c_rh_c_host: "ci.cloud.redhat.com"
     rhn_subscription_url: "https://subscription.rhsm.qa.redhat.com/subscription"
