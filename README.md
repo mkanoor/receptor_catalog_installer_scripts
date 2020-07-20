@@ -2,30 +2,34 @@
 
 This repository consists of scripts that can be used to install and configure
 
- 1. Receptor
- 2. Catalog Receptor Plugin
+ Receptor & 
+ Catalog Receptor Plugin
 
 This would allow your on premise Ansible Tower to connect to cloud.redhat.com
 
-The Catalog Receptor can be installed on
+The Receptor & the catalog Receptor plugin can be installed on
 
- 1. Container
- 2. VM
- 3. Physical 
+ - Container
+ - VM
+ - Physical 
 
 **Pre Requisites**
 
- 1. RHEL 7 or RHEL 8 with valid subscriptions.
+ - RHEL 7 or
+ - RHEL 8
+  
+ With valid subscriptions.
 
 **The install script and Dockerfile will try to install the following pre-requisites for you**
 
- 1. Python 3.6
- 2. Ansible 2.9
- 3. [Ansible Role](https://galaxy.ansible.com/mkanoor/catalog_receptor_installer)
+ - Python 3.6
+ - Ansible 2.9
+ - [Ansible Role](https://galaxy.ansible.com/mkanoor/catalog_receptor_installer)
 
 The Ansible role installs the receptor and the plugin, and configures it so its visible in the cloud.redhat.com. After the installation is successful we
 1. Add a Source in the cloud.redhat.com
 2. Add an End Point for this receptor node
+3. Add Automation Services Catalog as a valid application for the Source.
 
 ## Usage: VM or Physical Machine
 
@@ -37,6 +41,11 @@ The Ansible role installs the receptor and the plugin, and configures it so its 
  - **export RHSM_URL=<<Your QA/CI Subscription Manager URL>> (optional)**
  - Run the following command ( **install.sh sample_playbooks/vm/install_receptor.yml**)
  - After the install completes you should be able to have a system service running for the receptor
+
+A QA Repository can be specified via an environment variable, this repo would contain the  RPM's for the receptor, catalog receptor plugin and their dependencies.
+e.g.
+export **QA_REPO**=......
+** install.sh sample_playbooks/vm/install_receptor_qa.yml**
 
 ## Usage: Docker Container
 
@@ -56,7 +65,7 @@ The Ansible role installs the receptor and the plugin, and configures it so its 
 
 or
 
-**docker build --build-arg RHSM_URL=<<rhsm_qa_url>> --build-arg USERNAME=<<your_rhn_user>> --build-arg  PASSWORD=<<your_rhn_password>> --tag receptor_installer .**
+**docker build --build-arg RHSM_URL=<<rhsm_qa_url>> --build-arg USERNAME=<<your_rhn_user>> --build-arg  PASSWORD=<<your_rhn_password>> --build-arg  QA_REPO=<<your_qa_repo_url>> --tag receptor_installer .**
 
 **docker run -it  -v <<your_current_dir>>/sample_playbooks/container:/playbooks receptor_installer**
 
