@@ -7,7 +7,7 @@ This repository consists of scripts that can be used to install and configure
 
 This would allow your on premise Ansible Tower to connect to cloud.redhat.com
 
-The Receptor & the catalog Receptor plugin can be installed on
+The Receptor & the catalog Receptor plugin can be installed on one of the following
 
  - Container
  - VM
@@ -31,6 +31,8 @@ The Ansible role installs the receptor and the plugin, and configures it so its 
 2. Add an End Point for this receptor node
 3. Add Automation Services Catalog as a valid application for the Source.
 
+This repo contains sample_playbooks for vm and container. You would setup the url and the token for the tower in the playbooks. Tokens are the recommended way for the plugin to authenticate with the Ansible Tower. To read more about Ansible tokens refer to https://docs.ansible.com/ansible-tower/latest/html/administration/oauth2_token_auth.html
+
 ## Usage: VM or Physical Machine
 
  - Clone this repository to your VM or Physical Machine
@@ -43,9 +45,12 @@ The Ansible role installs the receptor and the plugin, and configures it so its 
  - After the install completes you should be able to have a system service running for the receptor
 
 A QA Repository can be specified via an environment variable, this repo would contain the  RPM's for the receptor, catalog receptor plugin and their dependencies.
+
 e.g.
+
 export **QA_REPO**=......
-** install.sh sample_playbooks/vm/install_receptor_qa.yml**
+
+**install.sh sample_playbooks/vm/install_receptor_qa.yml**
 
 ## Usage: Docker Container
 
@@ -72,3 +77,4 @@ or
 If you want to test this as a Developer or a QE you can change the entry point and pass in your playbook
 
 **docker run -it -v <<your_current_dir>>/sample_playbooks/container:/playbooks --entrypoint /bin/entrypoint.sh receptor_installer install_receptor_qa.yml**
+
