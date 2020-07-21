@@ -108,9 +108,11 @@ fi
 MAJOR_VERSION=`cat /etc/os-release | grep -w VERSION_ID | cut -d= -f2 | tr -d '"' | cut -d. -f1`
 if [[ "$MAJOR_VERSION" -eq 8 ]]
 then
+  echo "Enabling Ansible 2.9 repos"
   subscription-manager repos --enable ansible-2.9-for-rhel-8-x86_64-rpms
 elif [[ "$MAJOR_VERSION" -eq 7 ]]
 then
+  echo "Enabling Ansible 2.9 repos"
   subscription-manager repos --enable rhel-7-server-ansible-2.9-rpms
   subscription-manager repos --enable rhel-7-server-extras-rpms
 else
