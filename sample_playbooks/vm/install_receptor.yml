@@ -4,6 +4,7 @@
   vars:
     tower_url: "https://ansible_tower_ip"
     tower_token: "your_ansible_token"
+    source_display_name: Receptor Enabled Ansible Tower
     tower_validate_certs: no
   roles:
     - mkanoor.catalog_receptor_installer
