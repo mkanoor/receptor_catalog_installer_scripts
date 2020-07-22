@@ -35,6 +35,7 @@ This repo contains sample_playbooks for vm and container. You would setup the ur
 
 ## Usage: VM or Physical Machine
 
+### GIT installed in VM
  - Clone this repository to your VM or Physical Machine
  - Edit the *sample_playbooks/vm/install_receptor.yml* playbook and update the Ansible Tower information
  - If your system needs to be registered with Red Hat Subscription Manager please set the following environment variables
@@ -51,6 +52,26 @@ e.g.
 export **QA_REPO**=......
 
 **install.sh sample_playbooks/vm/install_receptor_qa.yml**
+
+### GIT not installed in VM
+
+If you dont have git installed in the VM you can download the file using cURL
+*curl -O https://raw.githubusercontent.com/mkanoor/receptor_catalog_installer_scripts/master/install.sh
+curl -O https://raw.githubusercontent.com/mkanoor/receptor_catalog_installer_scripts/master/sample_playbooks/vm/install_receptor_qa.yml*
+
+Then edit the install_receptor_qa.yml
+
+Set the location of the RPM repostiory
+export **QA_REPO**=......
+
+
+If your system needs to be registered with Red Hat Subscription Manager please set the following environment variables
+ - **export RHN_USER=<<your_RHN_username>>**
+ - **export RHN_PASSWORD=<<your_RHN_password>>**
+ - **export RHSM_URL=<<Your QA/CI Subscription Manager URL>> (optional)**
+
+**install.sh install_receptor_qa.yml**
+
 
 ## Usage: Docker Container
 
