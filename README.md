@@ -56,6 +56,8 @@ export **QA_REPO**=......
 ### GIT not installed in VM
 
 If you dont have git installed in the VM you can download two files using cURL
+
+
 *curl -O https://raw.githubusercontent.com/mkanoor/receptor_catalog_installer_scripts/master/install.sh*
 
 
