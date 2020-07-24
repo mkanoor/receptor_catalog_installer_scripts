@@ -96,6 +96,7 @@ fi
 if [[ "$MAJOR_VERSION" -eq 7 ]]
 then
   install python3
+  install python2-jmespath
 fi
 
 install ansible
