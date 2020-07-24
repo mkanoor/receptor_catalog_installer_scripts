@@ -2,6 +2,7 @@
 
 RECEPTOR=/etc/receptor/rh_ansible_tower/receptor.sh
 UUID_FILE=/etc/receptor/rh_ansible_tower/uuid
+CONFIG_FILE=/etc/receptor/rh_ansible_tower/receptor.conf
 
 FILE="/playbooks/$1"
 
@@ -11,6 +12,7 @@ then
   if [[ $? -eq 0 ]]
   then 
     echo "Starting the receptor $RECEPTOR"
+    cat $CONFIG_FILE
     echo -n "Receptor Node id is " && cat $UUID_FILE
     $RECEPTOR
   else
