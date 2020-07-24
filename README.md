@@ -45,11 +45,7 @@ This repo contains sample_playbooks for vm and container. You would setup the ur
  - Run the following command ( **install.sh sample_playbooks/vm/install_receptor.yml**)
  - After the install completes you should be able to have a system service running for the receptor
 
-A QA Repository can be specified via an environment variable, this repo would contain the  RPM's for the receptor, catalog receptor plugin and their dependencies.
-
-e.g.
-
-export **QA_REPO**=......
+A QA Repository can be specified in the qa_repo variable in the playbook, this repo would contain the RPM's for the receptor, catalog receptor plugin and their dependencies.
 
 **install.sh sample_playbooks/vm/install_receptor_qa.yml**
 
@@ -65,9 +61,7 @@ If you dont have git installed in the VM you can download two files using cURL
 
 Then edit the install_receptor_qa.yml
 
-Set the location of the RPM repostiory
-export **QA_REPO**=......
-
+A QA Repository can be specified in the **qa_repo ** variable in the playbook, this repo would contain the RPM's for the receptor, catalog receptor plugin and their dependencies.
 
 If your system needs to be registered with Red Hat Subscription Manager please set the following environment variables
  - **export RHN_USER=<<your_RHN_username>>**
@@ -95,7 +89,7 @@ If your system needs to be registered with Red Hat Subscription Manager please s
 
 or
 
-**docker build --build-arg RHSM_URL=<<rhsm_qa_url>> --build-arg USERNAME=<<your_rhn_user>> --build-arg  PASSWORD=<<your_rhn_password>> --build-arg  QA_REPO=<<your_qa_repo_url>> --tag receptor_installer .**
+**docker build --build-arg RHSM_URL=<<rhsm_qa_url>> --build-arg USERNAME=<<your_rhn_user>> --build-arg  PASSWORD=<<your_rhn_password>> --build-arg  --tag receptor_installer .**
 
 **docker run -it  -v <<your_current_dir>>/sample_playbooks/container:/playbooks receptor_installer**
 
