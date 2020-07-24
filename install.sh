@@ -8,16 +8,9 @@
 # Optionally you can set the RHSM_URL if you have a QA or Dev System
 # export RHSM_URL=your_rhsm_url
 
-# Optionally QA can specify an internal repository for testing purpose
-# export QA_REPO=https://your_rpm_repo
-
 # Pre Requisites
 # Python 3.6
 # Ansible 2.9
-
-# Temporary pre requisites
-# wget
-# yum-utils
 
 function install() {
    yum list installed | grep $1
@@ -33,26 +26,6 @@ function install() {
        exit 1
      fi
    fi
-}
-
-function prep_qa_environment() {
-  if [[ -z "${QA_REPO}" ]]
-  then
-    echo "QA Repo not added"
-  else
-    # Package needed to add temporary repos till we get an official repository
-    install yum-utils
-
-    # Package needed to fetch the IT ROOT CA certificate
-    install wget
-
-    yum-config-manager --add-repo=$QA_REPO
-    # When running in CI environment we need to check the cert
-    # is signed by Redhat IT ROOT CA
-    # Needed only if we are connecting to ci.cloud.redhat.com
-    wget -P /etc/pki/ca-trust/source/anchors/ https://password.corp.redhat.com/RH-IT-Root-CA.crt
-    update-ca-trust
-  fi
 }
 
 function register_system() {
@@ -129,14 +102,6 @@ install ansible
 
 # Install the Ansible Galaxy Role for the installer
 ansible-galaxy install mkanoor.catalog_receptor_installer
-
-# Setup RPM repo for the python receptor & catalog plugin
-prep_qa_environment
-
-if [[ "$MAJOR_VERSION" -eq 7 ]]
-then
-  install python2-jmespath
-fi
 
 echo "Running Playbook $1"
 ansible-playbook $1
