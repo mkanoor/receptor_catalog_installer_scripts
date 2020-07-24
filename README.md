@@ -45,7 +45,7 @@ This repo contains sample_playbooks for vm and container. You would setup the ur
  - Run the following command ( **install.sh sample_playbooks/vm/install_receptor.yml**)
  - After the install completes you should be able to have a system service running for the receptor
 
-A QA Repository can be specified in the qa_repo variable in the playbook, this repo would contain the RPM's for the receptor, catalog receptor plugin and their dependencies.
+A QA Repository can be specified in the **qa_repo** variable in the playbook, this repo would contain the RPM's for the receptor, catalog receptor plugin and their dependencies.
 
 **install.sh sample_playbooks/vm/install_receptor_qa.yml**
 
@@ -61,7 +61,7 @@ If you dont have git installed in the VM you can download two files using cURL
 
 Then edit the install_receptor_qa.yml
 
-A QA Repository can be specified in the **qa_repo ** variable in the playbook, this repo would contain the RPM's for the receptor, catalog receptor plugin and their dependencies.
+A QA Repository can be specified in the **qa_repo** variable in the playbook, this repo would contain the RPM's for the receptor, catalog receptor plugin and their dependencies.
 
 If your system needs to be registered with Red Hat Subscription Manager please set the following environment variables
  - **export RHN_USER=<<your_RHN_username>>**
