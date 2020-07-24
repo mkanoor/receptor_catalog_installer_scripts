@@ -12,22 +12,6 @@
 # Python 3.6
 # Ansible 2.9
 
-function install() {
-   yum list installed | grep $1
-   if [[ $? -eq 0 ]]
-   then
-     echo "Package $1 is already installed"
-   else
-     echo "Attempting to install $1"
-     yum install -y $1
-     if [[ $? -ne 0 ]]
-     then
-       echo "Could not install package $1 hence exiting"
-       exit 1
-     fi
-   fi
-}
-
 function register_system() {
   if [[ -z "${RHN_USER}" ]]
   then 
@@ -95,9 +79,9 @@ fi
 
 if [[ "$MAJOR_VERSION" -eq 7 ]]
 then
-  yum install python3 python2-jmespath ansible
+  yum install -y python3 python2-jmespath ansible
 else
-  yum install ansible
+  yum install -y ansible
 fi
 
 # Install the Ansible Galaxy Role for the installer
