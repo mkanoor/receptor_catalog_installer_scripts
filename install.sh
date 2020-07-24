@@ -95,11 +95,10 @@ fi
 
 if [[ "$MAJOR_VERSION" -eq 7 ]]
 then
-  install python3
-  install python2-jmespath
+  yum install python3 python2-jmespath ansible
+else
+  yum install ansible
 fi
-
-install ansible
 
 # Install the Ansible Galaxy Role for the installer
 ansible-galaxy install mkanoor.catalog_receptor_installer
