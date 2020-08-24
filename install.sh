@@ -106,10 +106,10 @@ then
   fi
 elif [[ "$MAJOR_VERSION" -eq 7 ]]
 then
-  subscription-manager repos --enable automation-services-catalog-1-beta-for-rhel-7-x86_64-rpms
+  subscription-manager repos --enable rhel-7-server-automation-services-catalog-1-beta-rpms
   if [[ $? -ne 0 ]]
   then
-    echo "Could not enable automation-services-catalog-1-beta-for-rhel-7-x86_64-rpms"
+    echo "Could not enable rhel-7-server-automation-services-catalog-1-beta-rpms"
     echo "Try providing a pool id using an enviornment variable RHSM_POOL_ID"
     exit 1
   fi
