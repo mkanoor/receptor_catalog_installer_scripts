@@ -35,6 +35,21 @@ function register_system() {
   fi
 }
 
+function attach_pool() {
+  if [[ -z "${RHSM_POOL_ID}" ]]
+  then
+    return
+  fi
+
+  subscription-manager attach --pool $RHSM_POOL_ID
+
+  if [[ $? -ne 0 ]]
+  then
+    echo "Could not attach pool with ID $RHSM_POOL_ID"
+    exit 1
+  fi
+}
+
 REDHAT_RELEASE_FILE=/etc/redhat-release
 
 if [[ ! -f "$REDHAT_RELEASE_FILE" ]]
@@ -75,6 +90,29 @@ then
 else
   echo "Unsupported version of RHEL $MAJOR_VERSION"
   exit 1
+fi
+
+echo "Enabling Receptor Catalog Repo"
+attach_pool
+
+if [[ "$MAJOR_VERSION" -eq 8 ]]
+then
+  subscription-manager repos --enable automation-services-catalog-1-beta-for-rhel-8-x86_64-rpms
+  if [[ $? -ne 0 ]]
+  then
+    echo "Could not enable automation-services-catalog-1-beta-for-rhel-8-x86_64-rpms"
+    echo "Try providing a pool id using an enviornment variable RHSM_POOL_ID"
+    exit 1
+  fi
+elif [[ "$MAJOR_VERSION" -eq 7 ]]
+then
+  subscription-manager repos --enable automation-services-catalog-1-beta-for-rhel-7-x86_64-rpms
+  if [[ $? -ne 0 ]]
+  then
+    echo "Could not enable automation-services-catalog-1-beta-for-rhel-7-x86_64-rpms"
+    echo "Try providing a pool id using an enviornment variable RHSM_POOL_ID"
+    exit 1
+  fi
 fi
 
 if [[ "$MAJOR_VERSION" -eq 7 ]]

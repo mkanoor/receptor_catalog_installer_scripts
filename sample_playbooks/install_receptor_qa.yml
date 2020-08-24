@@ -4,11 +4,10 @@
   vars:
     tower_url: "https://ansible_tower_ip"
     tower_token: "your_ansible_tower_token"
-    qa_repo: your_qa_repo_url
     source_display_name: Receptor Enabled Ansible Tower
     tower_validate_certs: no
-    c_rh_c_host: "ci.cloud.redhat.com"
-    rhn_subscription_url: "https://subscription.rhsm.qa.redhat.com/subscription"
+    c_rh_c_host: "cert.cloud.stage.redhat.com"
+    rhn_subscription_url: "https://subscription.rhsm.stage.redhat.com/subscription"
     qa_ca_cert: https://password.corp.redhat.com/RH-IT-Root-CA.crt
   roles:
     - mkanoor.catalog_receptor_installer
