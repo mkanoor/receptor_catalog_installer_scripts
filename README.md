@@ -47,24 +47,26 @@ This repo contains sample_playbooks for use in QA environment and production. Yo
    **subscription-manager list --available --all**
 
    And search the Pool ID for **Red Hat Ansible Automation, Standard**
+
+
    Snippet
 
    
-  Subscription Name:Red Hat Ansible Automation, Standard (5000 Managed Nodes). 
+  Subscription Name:Red Hat Ansible Automation, Standard (5000 Managed Nodes) 
 
- Provides:  Red Hat Ansible Engine. 
+ Provides:  Red Hat Ansible Engine 
 
-SKU: MCT3692. 
+SKU: MCT3692 
 
-Contract:  xxxxxx. 
+Contract:  xxxxxx 
 
-**Pool ID: your_pool_id**. 
+**Pool ID: your_pool_id** 
 
-Provides Management: No. 
+Provides Management: No 
 
-Available: 50000. 
+Available: 50000 
 
-Suggested: 1*. 
+Suggested: 1 
 
 
    This Pool ID can be set in the environment variable for the installer to use
