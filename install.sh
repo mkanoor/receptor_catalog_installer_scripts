@@ -38,7 +38,10 @@ function register_system() {
 function attach_pool() {
   if [[ -z "${RHSM_POOL_ID}" ]]
   then
-    return
+    echo "Please set the environment variable RHSM_POOL_ID with the Pool ID for Red Hat Ansible Automation"
+    echo "to get the Pool ID use the following command."
+    echo "subscription-manager list --available --all"
+    exit 1
   fi
 
   subscription-manager attach --pool $RHSM_POOL_ID
