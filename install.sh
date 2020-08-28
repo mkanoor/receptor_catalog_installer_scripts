@@ -35,23 +35,35 @@ function register_system() {
   fi
 }
 
+function attach_pool_ids() {
+  for pool in $*
+  do
+    echo "Attaching Pool Id $pool"
+    subscription-manager attach --pool $pool
+    if [[ $? -ne 0 ]]
+    then
+      echo "Failed to Attach Pool ID $pool"
+      exit 1
+    fi
+  done
+}
+
+function get_pool_ids() {
+  RHSM_ASC_SKU="${RHSM_ASC_SKU:-MCT3692}"
+  echo "Getting pool ids for SKU $RHSM_ASC_SKU"
+  RHSM_POOL_ID=$(subscription-manager list --available --all | grep -B1 -A5 $RHSM_ASC_SKU | grep "Pool ID:" | cut -d: -f2 | awk '{print $1}')
+}
+
 function attach_pool() {
   if [[ -z "${RHSM_POOL_ID}" ]]
   then
-    echo "Please set the environment variable RHSM_POOL_ID with the Pool ID for Red Hat Ansible Automation"
-    echo "to get the Pool ID use the following command."
-    echo "subscription-manager list --available --all"
-    exit 1
+    get_pool_ids
   fi
 
-  subscription-manager attach --pool $RHSM_POOL_ID
-
-  if [[ $? -ne 0 ]]
-  then
-    echo "Could not attach pool with ID $RHSM_POOL_ID"
-    exit 1
-  fi
+  attach_pool_ids $RHSM_POOL_ID
 }
+
+
 
 REDHAT_RELEASE_FILE=/etc/redhat-release
 
