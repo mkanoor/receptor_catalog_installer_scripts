@@ -2,11 +2,15 @@
 
 # If the system is not registered. Please set the following
 # environment variables, and the script will try to register
-# the systemi for you
+# the system for you
 # export RHN_USER=your_username
 # export RHN_PASSWORD=your_password
 # Optionally you can set the RHSM_URL if you have a QA or Dev System
 # export RHSM_URL=your_rhsm_url
+# Optionally you can set the RHSM_ASC_SKU to set the SKU to use
+# The default SKU is MCT3692
+# Optionally you can set the RHSM_POOL_ID if you dont want the script
+# to figure out the Pool ID from SKU number
 
 # Pre Requisites
 # Python 3.6
