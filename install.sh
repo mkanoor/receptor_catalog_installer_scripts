@@ -55,7 +55,7 @@ function attach_pool_ids() {
 function get_pool_ids() {
   RHSM_ASC_SKU="${RHSM_ASC_SKU:-MCT3692}"
   echo "Getting pool ids for SKU $RHSM_ASC_SKU"
-  RHSM_POOL_ID=$(subscription-manager list --available --all | grep -B1 -A5 $RHSM_ASC_SKU | grep "Pool ID:" | cut -d: -f2 | awk '{print $1}')
+  RHSM_POOL_ID=$(subscription-manager list --available --matches=$RHSM_ASC_SKU --pool-only)
 }
 
 function attach_pool() {
