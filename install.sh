@@ -7,11 +7,6 @@
 # export RHN_PASSWORD=your_password
 # Optionally you can set the RHSM_URL if you have a QA or Dev System
 # export RHSM_URL=your_rhsm_url
-# Optionally you can set the RHSM_ASC_SKU to set the SKU to use
-# The default SKU is MCT3692
-# Optionally you can set the RHSM_POOL_ID if you dont want the script
-# to figure out the Pool ID from SKU number
-
 # Pre Requisites
 # Python 3.6
 # Ansible 2.9
@@ -38,36 +33,6 @@ function register_system() {
     exit 1
   fi
 }
-
-function attach_pool_ids() {
-  for pool in $*
-  do
-    echo "Attaching Pool Id $pool"
-    subscription-manager attach --pool $pool
-    if [[ $? -ne 0 ]]
-    then
-      echo "Failed to Attach Pool ID $pool"
-      exit 1
-    fi
-  done
-}
-
-function get_pool_ids() {
-  RHSM_ASC_SKU="${RHSM_ASC_SKU:-MCT3692}"
-  echo "Getting pool ids for SKU $RHSM_ASC_SKU"
-  RHSM_POOL_ID=$(subscription-manager list --available --matches=$RHSM_ASC_SKU --pool-only)
-}
-
-function attach_pool() {
-  if [[ -z "${RHSM_POOL_ID}" ]]
-  then
-    get_pool_ids
-  fi
-
-  attach_pool_ids $RHSM_POOL_ID
-}
-
-
 
 REDHAT_RELEASE_FILE=/etc/redhat-release
 
@@ -109,29 +74,6 @@ then
 else
   echo "Unsupported version of RHEL $MAJOR_VERSION"
   exit 1
-fi
-
-echo "Enabling Receptor Catalog Repo"
-attach_pool
-
-if [[ "$MAJOR_VERSION" -eq 8 ]]
-then
-  subscription-manager repos --enable automation-services-catalog-1-beta-for-rhel-8-x86_64-rpms
-  if [[ $? -ne 0 ]]
-  then
-    echo "Could not enable automation-services-catalog-1-beta-for-rhel-8-x86_64-rpms"
-    echo "Try providing a pool id using an enviornment variable RHSM_POOL_ID"
-    exit 1
-  fi
-elif [[ "$MAJOR_VERSION" -eq 7 ]]
-then
-  subscription-manager repos --enable rhel-7-server-automation-services-catalog-1-beta-rpms
-  if [[ $? -ne 0 ]]
-  then
-    echo "Could not enable rhel-7-server-automation-services-catalog-1-beta-rpms"
-    echo "Try providing a pool id using an enviornment variable RHSM_POOL_ID"
-    exit 1
-  fi
 fi
 
 if [[ "$MAJOR_VERSION" -eq 7 ]]

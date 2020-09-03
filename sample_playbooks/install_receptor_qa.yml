@@ -9,5 +9,6 @@
     c_rh_c_host: "cert.cloud.stage.redhat.com"
     rhn_subscription_url: "https://subscription.rhsm.stage.redhat.com/subscription"
     qa_ca_cert: https://password.corp.redhat.com/RH-IT-Root-CA.crt
+    rhsm_asc_sku: RC1257407
   roles:
     - mkanoor.catalog_receptor_installer
