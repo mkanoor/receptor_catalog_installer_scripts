@@ -90,5 +90,33 @@ If you want to test this as a Developer or a QE you can change the entry point a
 **docker run -it -v <<your_current_dir>>/sample_playbooks:/playbooks --entrypoint /bin/entrypoint.sh receptor_installer install_receptor_qa.yml**
 
 If you wan to run this with Proxy server use the following command
+
 **docker run --env HTTPS_PROXY=<<your_proxy>> -it -v <<your_current_dir>>/sample_playbooks:/playbooks --entrypoint /bin/entrypoint.sh receptor_installer install_receptor_qa.yml**
 
+
+### Debugging on VM or Physical 
+
+
+If you want to start the Catalog Plugin in debug mode you would have to modify the receptor.conf file located in
+
+**/etc/receptor/rh_ansible_tower**
+
+In the default section
+```
+[default]
+
+node_id=772a9084-e443-4de9-837e-dddca954b904
+
+debug=False
+```
+
+set **debug=True**
+save the receptor.conf
+
+And restart the service
+
+**systemctl restart catalog_receptor@rh_ansible_1.service**
+
+To view the logs
+
+**journalctl -u catalog_receptor@rh_ansible_1.service**
