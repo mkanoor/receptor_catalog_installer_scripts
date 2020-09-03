@@ -41,37 +41,6 @@ This repo contains sample_playbooks for use in QA environment and production. Yo
    To register a VM use the following command
    **subscription-manager register --username <<your_username>> --password <<your_password>>**
 
-   To access the RPM repository you need a Pool ID. The pool id can be found by running
-   the following command
-
-   **subscription-manager list --available --all**
-
-   And search the Pool ID for **Red Hat Ansible Automation, Standard**
-
-
-   Snippet
-
-   
-  Subscription Name:Red Hat Ansible Automation, Standard (5000 Managed Nodes) 
-
- Provides:  Red Hat Ansible Engine 
-
-SKU: MCT3692 
-
-Contract:  xxxxxx 
-
-**Pool ID: your_pool_id** 
-
-Provides Management: No 
-
-Available: 50000 
-
-Suggested: 1 
-
-
-   This Pool ID can be set in the environment variable for the installer to use
-
-   **export RHSM_POOL_ID=your_pool_id**
 
 ### GIT installed in VM
  - Clone this repository to your VM or Physical Machine
@@ -111,7 +80,7 @@ Then edit the install_receptor_qa.yml save the changes and run
 
 **docker login https://registry.redhat.io**
 
-**docker build --build-arg USERNAME=<<your_rhn_user>> --build-arg  PASSWORD=<<your_rhn_password>> --build-arg RHSM_POOL_ID=<<your_pool_id>> --tag receptor_installer .**
+**docker build --build-arg USERNAME=<<your_rhn_user>> --build-arg  PASSWORD=<<your_rhn_password>> --tag receptor_installer .**
 
 
 **docker run -it  -v <<your_current_dir>>/sample_playbooks:/playbooks receptor_installer**
